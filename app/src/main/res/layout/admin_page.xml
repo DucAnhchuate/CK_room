@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/add_train"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD TRAIN" />
+
+    <Button
+        android:id="@+id/add_train_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD TRAIN STATUS" />
+
+    <Button
+        android:id="@+id/add_route"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD ROUTE" />
+
+    <Button
+        android:id="@+id/add_station"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD STATION" />
+
+    <Button
+        android:id="@+id/manage_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MANAGE PROFILE" />
+    <Button
+        android:id="@+id/manage_train"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MANAGE TRAIN" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    android:text="BACK" />
+</LinearLayout>

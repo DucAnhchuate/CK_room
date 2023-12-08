@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/t"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Book for:"
+        android:textSize="28sp"
+        ></TextView>
+
+    <RadioGroup
+        android:id="@+id/radioGroupBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/forme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="For me" />
+
+        <RadioButton
+            android:id="@+id/another"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Another person" />
+
+       =
+    </RadioGroup>
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name:">
+
+    </EditText>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose type of paymment:"
+        android:textSize="18sp"
+        android:padding="16dp" />
+
+
+
+    <RadioGroup
+        android:id="@+id/radioGroupPayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radioButtonMomo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Momo" />
+
+        <RadioButton
+            android:id="@+id/radioButtonPaypal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PayPal" />
+
+        <RadioButton
+            android:id="@+id/radioButtonCreditCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Credit Card" />
+
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ok"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

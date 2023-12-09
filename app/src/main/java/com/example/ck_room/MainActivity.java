@@ -9,9 +9,10 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,11 +39,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-        username = findViewById(R.id.edtUsername);
+
+        setContentView(R.layout.sign_in);
+        username = findViewById(R.id.edtFirst);
         pass = findViewById(R.id.edtPassword);
-        login = findViewById(R.id.btSignin);
-        register = findViewById(R.id.txtSignUp);
+        login = findViewById(R.id.btSignUp);
+        register = findViewById(R.id.txtSignIn);
 
         myDatabase = DatabaseManager.getDatabase(getApplicationContext());
 

@@ -41,7 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/rounded_corner"
+        android:background="@drawable/sign_in_body"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -57,7 +57,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rounded_edittext_corner"
+        android:background="@drawable/sign_in_edittext"
         android:drawableRight="@drawable/baseline_visibility_off_24"
         android:ems="10"
         android:hint="Password"
@@ -70,11 +70,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtUsername"
+        app:layout_constraintTop_toBottomOf="@+id/edtFirst"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/txtSignIn"
+        android:id="@+id/SignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -91,13 +91,13 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/edtUsername"
+        android:id="@+id/edtFirst"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_edittext_corner"
+        android:background="@drawable/sign_in_edittext"
         android:ems="10"
         android:hint="Username"
         android:inputType="text"
@@ -109,18 +109,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSignIn"
+        app:layout_constraintTop_toBottomOf="@+id/SignUp"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btSignin"
+        android:id="@+id/btSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:height="60dp"
-        android:background="@drawable/rounded_button_corner"
+        android:background="@drawable/sign_in_button"
         android:text="Sign in"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -147,14 +147,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btSignin"
+        app:layout_constraintTop_toBottomOf="@+id/btSignUp"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/txtSignUp"
+        android:id="@+id/txtSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:text="Don't have an account? Sign up"
         android:textColor="#FF0A80DD"
         android:textSize="16sp"

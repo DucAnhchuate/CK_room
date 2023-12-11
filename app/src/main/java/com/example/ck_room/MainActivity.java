@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     boolean passwordVisible;
     private MyDatabase myDatabase;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,13 +68,6 @@ public class MainActivity extends AppCompatActivity {
         register.setText(spannableString);
 
         register.setMovementMethod(android.text.method.LinkMovementMethod.getInstance());
-
-//        register.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this,Sign_up.class);
-//            }
-//        });
 
         //Password toggle
         pass.setOnTouchListener(new View.OnTouchListener() {
@@ -122,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user =myDatabase.userDao().getUserByMail(username.getText().toString());
+                User user = myDatabase.userDao().getUserByMail(username.getText().toString());
                 if(username.getText().toString().equals("admin") && pass.getText().toString().equals("admin"))
                 {
                     Intent intent = new Intent(MainActivity.this,Admin_page.class);
@@ -134,14 +125,16 @@ public class MainActivity extends AppCompatActivity {
                    if(user != null && pass.getText().toString().equals(user.getPass()))
                     {
                         Intent intent = new Intent(MainActivity.this,User_page.class);
-                        intent.putExtra("name",user.getName());
-                        intent.putExtra("age",user.getAge() +"");
+                        intent.putExtra("lastName",user.getLastName());
+                        intent.putExtra("firstName",user.getFirstName());
+                        intent.putExtra("dob",user.getDob() +"");
                         intent.putExtra("phone",user.getPhone());
                         intent.putExtra("gender",user.getGender());
                         intent.putExtra("username",user.getUserName());
                         intent.putExtra("pass",user.getPass());
 
                         startActivityForResult(intent,REQUEST_CODE);
+                        finish();
                     }
                     else
                     {

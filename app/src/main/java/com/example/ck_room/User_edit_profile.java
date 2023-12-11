@@ -1,13 +1,17 @@
 package com.example.ck_room;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,81 +20,162 @@ import com.example.ck_room.DataConfig.DatabaseManager;
 import com.example.ck_room.DataConfig.MyDatabase;
 import com.example.ck_room.Entity.User;
 
-public class User_edit_profile extends AppCompatActivity {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
-    EditText name,age,phone,username,pass;
-    Button back,edit;
-    RadioGroup radio;
-    RadioButton radioMale, radioFemale;
+public class User_edit_profile extends AppCompatActivity {
+    int REQUEST_CODE = 20;
+
+    EditText phone, first, last;
+    Button back,save, logout;
+    String[] genderOptions = {"Female", "Male"};
+
+    TextView name, gender, dob;
+    private Calendar selectedDate = Calendar.getInstance();
+
     MyDatabase myDatabase;
+    String selectedGender;
+    private void showGenderDialog() {
+
+        int defaultSelectedIndex = getGenderIndex(gender.getText().toString());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(User_edit_profile.this);
+        builder.setTitle("Select Gender")
+                .setSingleChoiceItems(genderOptions, defaultSelectedIndex, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedGender= genderOptions[which];
+                    }
+                });
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                gender.setText(selectedGender);
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private int getGenderIndex(String gender) {
+        for (int i = 0; i < genderOptions.length; i++) {
+            if (genderOptions[i].equalsIgnoreCase(gender)) {
+                return i;
+            }
+        }
+        return -1; // Trả về
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_edit_profile);
         myDatabase = DatabaseManager.getDatabase(getApplicationContext());
-        name = findViewById(R.id.name);
-        age = findViewById(R.id.age);
-        phone = findViewById(R.id.phone);
-        username = findViewById(R.id.username);
-        pass = findViewById(R.id.password);
-        back = findViewById(R.id.back);
-        edit = findViewById(R.id.edit);
+        first = findViewById(R.id.edtFirst);
+        last = findViewById(R.id.edtLast);
+        phone = findViewById(R.id.edtPhone);
+        back = findViewById(R.id.btBack);
+        save = findViewById(R.id.btSave);
+        dob = findViewById(R.id.edtDob);
+        gender = findViewById(R.id.edtGe);
+        name = findViewById(R.id.txtName);
+        logout = findViewById(R.id.btLogout);
 
-        radio = findViewById(R.id.radioGroup);
-        radioMale = findViewById(R.id.radioFemale);
-        radioFemale = findViewById(R.id.radioMale);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(User_edit_profile.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivityForResult(intent,REQUEST_CODE);
+                // Finish all activities in the stack
+                finishAffinity();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent resultIntent = new Intent();
+                setResult(RESULT_OK, resultIntent);
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
-        String name1 = intent.getStringExtra("name");
-        String age2 = intent.getStringExtra("age");
-        String phone3 = intent.getStringExtra("phone");
-        String gender4 = intent.getStringExtra("gender");
-        String username5 = intent.getStringExtra("username");
-        String pass6 = intent.getStringExtra("pass");
-        Log.d("=====",name1);
+        String userTemp = intent.getStringExtra("username");
 
-        name.setText(name1);
-        age.setText(age2);
-        phone.setText(phone3);
-        username.setText(username5);
-        pass.setText(pass6);
-        if(gender4.equals("Female"))
+        User user = myDatabase.userDao().getUserByMail(userTemp);
+
+        name.setText(user.getLastName() + " " + user.getFirstName());
+        phone.setText(user.getPhone());
+        dob.setText(user.getDob());
+        last.setText(user.getLastName());
+        first.setText(user.getFirstName());
+
+        if(user.getGender().equals("Female"))
         {
-            radioFemale.setChecked(true);
+            gender.setText("Female");
         }
         else
         {
-            radioMale.setChecked(true);
+            gender.setText("Male");
         }
-        edit.setOnClickListener(new View.OnClickListener() {
+
+        gender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String gender_convert = "" ;
-                if(radioMale.isChecked())
-                {
-                    gender_convert = "" + radioFemale.getText().toString();
-                }
-                else
-                {
-                    gender_convert = "" + radioMale.getText().toString();
+                showGenderDialog();
+            }
+        });
+        dob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        User_edit_profile.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                selectedDate.set(Calendar.YEAR, year);
+                                selectedDate.set(Calendar.MONTH, month);
+                                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                }
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                                String selectedDateString = dateFormat.format(selectedDate.getTime());
+                                dob.setText(selectedDateString);
+                            }
+                        },
+                        selectedDate.get(Calendar.YEAR),
+                        selectedDate.get(Calendar.MONTH),
+                        selectedDate.get(Calendar.DAY_OF_MONTH)
+                );
 
+                datePickerDialog.show();
+            }
+        });
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                User user = myDatabase.userDao().getUserByMail(username5);
-                user.setUserName(username.getText().toString());
-                user.setPass(pass.getText().toString());
-                user.setName(name.getText().toString());
+                User user = myDatabase.userDao().getUserByMail(userTemp);
+
+                user.setLastName(last.getText().toString());
+                user.setFirstName(first.getText().toString());
                 user.setPhone(phone.getText().toString());
-                user.setGender(gender_convert);
-                user.setAge(Integer.parseInt(age.getText().toString()));
+                user.setGender(gender.getText().toString());
+                user.setDob(dob.getText().toString());
 
                 myDatabase.userDao().update(user);
-                Intent intent = new Intent();
 
-                setResult(RESULT_OK,intent);
+                Toast.makeText(User_edit_profile.this,"Update Succesfully", Toast.LENGTH_SHORT).show();
+
+                Intent updatedIntent = new Intent(User_edit_profile.this, User_edit_profile.class);
+                updatedIntent.putExtra("username", userTemp);
+
+                // Finish the current activity
                 finish();
-            }
+
+                // Start the activity with the new intent
+                startActivity(updatedIntent);
+          }
         });
 
     }

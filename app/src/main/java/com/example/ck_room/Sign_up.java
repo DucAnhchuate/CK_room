@@ -5,6 +5,9 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,99 +19,28 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ck_room.DataConfig.DatabaseManager;
 import com.example.ck_room.DataConfig.MyDatabase;
+import com.example.ck_room.Entity.User;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class Sign_up extends AppCompatActivity {
     EditText first,last,phone,username,pass;
     RadioGroup radio;
     RadioButton radioMale, radioFemale;
     Button signUp;
-    TextView signIn, dateDialog;
+    TextView signIn, dob;
 
-    int age= 0;
-    DatePickerDialog datePickerDialog;
+    boolean passwordVisible;
+
+    private Calendar selectedDate = Calendar.getInstance();
+
     private MyDatabase myDatabase;
 
-    private void initDatePicker(){
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month++;
-                String date = makeDateString(dayOfMonth, month, year);
-                dateDialog.setText(date);
-                age = calculateAge(Integer.parseInt(dateDialog.getText().toString().substring(dateDialog.getText().toString().length() - 4))
-                        ,LocalDate.now());
-            }
-        };
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-
-        int style = AlertDialog.THEME_HOLO_DARK;
-
-        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-
-    }
-
-    public void openDatePicker(View view){
-        datePickerDialog.show();
-    }
-    private String makeDateString(int day, int month, int year){
-        return getMonthFormat(month) + " " + day + " " + year;
-    }
-    private String getMonthFormat(int month){
-        if (month == 1){
-            return "JAN";
-        }
-        if (month == 2){
-            return "FEB";
-        }
-        if (month == 3){
-            return "MAR";
-        }
-        if (month == 4){
-            return "APR";
-        }
-        if (month == 5){
-            return "MAY";
-        }
-        if (month == 6){
-            return "JUN";
-        }
-        if (month == 7){
-            return "JUL";
-        }
-        if (month == 8){
-            return "AUG";
-        }
-        if (month == 9){
-            return "SEP";
-        }
-        if (month == 10){
-            return "OCT";
-        }
-        if (month == 11){
-            return "NOV";
-        }
-        if (month == 12){
-            return "DEC";
-        }
-        return "JAN";
-    }
-
-    private String getTodaysDate(){
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        month ++;
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        return makeDateString(day, month, year);
-    }
 
     private void aler(String string){
         AlertDialog.Builder builder = new AlertDialog.Builder(Sign_up.this);
@@ -131,10 +63,10 @@ public class Sign_up extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_up1);
+        setContentView(R.layout.sign_up);
         first = findViewById(R.id.edtFirst);
         last = findViewById(R.id.edtLast);
-        dateDialog = findViewById(R.id.dob2);
+        dob = findViewById(R.id.edtDob);
         phone = findViewById(R.id.edtPhone);
         username = findViewById(R.id.edtEmail);
         pass = findViewById(R.id.edtPassword);
@@ -144,9 +76,31 @@ public class Sign_up extends AppCompatActivity {
         signIn = findViewById(R.id.txtSignIn);
         signUp = findViewById(R.id.btSignUp);
 
-        initDatePicker();
-        dateDialog.setText(getTodaysDate());
+        dob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        Sign_up.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                selectedDate.set(Calendar.YEAR, year);
+                                selectedDate.set(Calendar.MONTH, month);
+                                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                                String selectedDateString = dateFormat.format(selectedDate.getTime());
+                                dob.setText(selectedDateString);
+                            }
+                        },
+                        selectedDate.get(Calendar.YEAR),
+                        selectedDate.get(Calendar.MONTH),
+                        selectedDate.get(Calendar.DAY_OF_MONTH)
+                );
+
+                datePickerDialog.show();
+            }
+        });
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,13 +109,52 @@ public class Sign_up extends AppCompatActivity {
                 finish();
             }
         });
+
+        pass.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                final int Right = 2;
+
+                if (event.getAction() == MotionEvent.ACTION_UP){
+
+                    if (event.getRawX() >= pass.getRight() - pass.getCompoundDrawables()[Right].getBounds().width()){
+
+                        int selection = pass.getSelectionEnd();
+
+                        if (passwordVisible){
+
+                            pass.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_off_24, 0);
+
+                            pass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+                            passwordVisible = false;
+                        }
+                        else{
+
+                            pass.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_24, 0);
+
+                            pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+
+
+                            passwordVisible = true;
+                        }
+                        pass.setSelection(selection);
+
+                        return true;
+                    }
+                }
+                return  false;
+            }
+        });
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Boolean flag = true;
                 if (last.getText().toString().isEmpty() ||
                         first.getText().toString().isEmpty()||
-                        dateDialog.getText().toString().isEmpty() ||
+                        dob.getText().toString().isEmpty() ||
                         phone.getText().toString().isEmpty() ||
                         username.getText().toString().isEmpty() ||
                         pass.getText().toString().isEmpty() ||
@@ -174,33 +167,36 @@ public class Sign_up extends AppCompatActivity {
 
                 }
 
-                else if(age < 18)
-                {
-                    //Toast.makeText(Sign_up.this, "Age must be > 0 and < 200", Toast.LENGTH_SHORT).show();
-                    aler("Age must be >= 18");
-                    flag = false;
-                }
-//                int age_convert = Integer.parseInt(age.getText().toString());
-//                String gender_convert = "";
-//
-//                if(flag)
+//                else if(age < 18)
 //                {
-//                    if(radioFemale.isChecked())
-//                    {
-//                        gender_convert = radioFemale.getText().toString();
-//                    }
-//                    else
-//                    {
-//                        gender_convert = radioMale.getText().toString();
-//                    }
-//                    Intent resultIntent = new Intent();
-//                    myDatabase = DatabaseManager.getDatabase(getApplicationContext());
-//                    User user = new User(username.getText().toString(),pass.getText().toString(),name.getText().toString(),
-//                    phone.getText().toString(),age_convert,gender_convert);
-//                    myDatabase.userDao().insert(user);
-//                    setResult(RESULT_OK, resultIntent);
-//                    finish();
+//                    aler("Age must be >= 18");
+//                    flag = false;
 //                }
+                String gender = "";
+                //if ()
+
+
+                if(flag)
+                {
+                    String name = last.getText().toString() + " " + first.getText().toString();
+                    if(radioFemale.isChecked())
+                    {
+                        gender = radioFemale.getText().toString();
+                    }
+                    else
+                    {
+                        gender = radioMale.getText().toString();
+                    }
+                    Intent resultIntent = new Intent();
+                    myDatabase = DatabaseManager.getDatabase(getApplicationContext());
+
+                    User user = new User(username.getText().toString(),pass.getText().toString(),
+                                                    phone.getText().toString(), dob.getText().toString(), gender, first.getText().toString(), last.getText().toString());
+
+                    myDatabase.userDao().insert(user);
+                    setResult(RESULT_OK, resultIntent);
+                    finish();
+                }
             }
         });
     }

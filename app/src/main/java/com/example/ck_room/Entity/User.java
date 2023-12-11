@@ -12,17 +12,20 @@ public class User {
     @ColumnInfo(name = "EmailID")
     @NonNull
     private String userName;
+
+    @ColumnInfo (name = "firstName")
+    private String firstName;
+
+    @ColumnInfo (name = "lastName")
+    private String lastName;
     @ColumnInfo(name = "pass")
     private String pass;
-
-    @ColumnInfo(name = "name")
-    private String name;
 
     @ColumnInfo(name = "phone")
     private String phone;
 
-    @ColumnInfo(name = "age")
-    private int age;
+    @ColumnInfo(name = "dob")
+    private String dob;
 
     @ColumnInfo(name = "gender")
     private String gender;
@@ -31,13 +34,30 @@ public class User {
     {
 
     }
-    public User(String userName,String pass, String name, String phone, int age, String gender) {
+    public User(String userName,String pass, String phone,String dob, String gender, String firstName, String lastName) {
+        this.lastName = lastName;
+        this.firstName = firstName;
         this.userName = userName;
-        this.name = name;
         this.phone = phone;
-        this.age = age;
+        this.dob = dob;
         this.gender = gender;
         this.pass = pass;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUserName() {
@@ -48,15 +68,6 @@ public class User {
         this.userName = userName;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
     public String getPhone() {
         return phone;
     }
@@ -65,12 +76,12 @@ public class User {
         this.phone = phone;
     }
 
-    public int getAge() {
-        return age;
+    public String getDob() {
+        return dob;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     public String getGender() {
@@ -94,9 +105,8 @@ public class User {
         return "User{" +
                 "userName='" + userName + '\'' +
                 ", pass='" + pass + '\'' +
-                ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
-                ", age=" + age +
+                ", dob=" + dob +
                 ", gender='" + gender + '\'' +
                 '}';
     }

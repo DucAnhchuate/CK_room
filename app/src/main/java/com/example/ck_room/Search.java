@@ -3,7 +3,6 @@ package com.example.ck_room;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -50,8 +49,8 @@ public class Search extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
-        spinner = findViewById(R.id.spinner);
-        spinner2 = findViewById(R.id.spinner2);
+        spinner = findViewById(R.id.sourceSpinner);
+        spinner2 = findViewById(R.id.desSpinner);
         date = findViewById(R.id.date_avail);
         search = findViewById(R.id.find);
         back = findViewById(R.id.back);

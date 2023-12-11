@@ -1,6 +1,505 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E8E6E6"
+    tools:layout_editor_absoluteY="25dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="TRIP DETAILS"
+        android:textColor="#111111"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/form"
+        android:layout_width="0dp"
+        android:layout_height="477dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/view_rounded"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:id="@+id/nameGr"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/form"
+        app:layout_constraintEnd_toEndOf="@+id/form"
+        app:layout_constraintStart_toStartOf="@+id/form"
+        app:layout_constraintTop_toTopOf="@+id/form"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
+            android:gravity="center_horizontal|left|center_vertical"
+            android:text="Name"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="0"
+            android:background="#FFFFFFFF"
+            android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
+            android:inputType="text"
+            android:text="Hà Nội - Đà Nẵng"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/DepartGr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/form"
+        app:layout_constraintEnd_toEndOf="@+id/form"
+        app:layout_constraintStart_toStartOf="@+id/form"
+        app:layout_constraintTop_toBottomOf="@+id/nameGr"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/txtDepart"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:drawableRight="@drawable/baseline_place_24"
+            android:gravity="left|center_vertical"
+            android:text="Depart From"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/edtDepart"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="0"
+            android:gravity="center_horizontal|center_vertical"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/arrGr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/form"
+        app:layout_constraintEnd_toEndOf="@+id/form"
+        app:layout_constraintStart_toStartOf="@+id/form"
+        app:layout_constraintTop_toBottomOf="@+id/DepartGr"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/txtArrive"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:drawableRight="@drawable/baseline_place_24"
+            android:gravity="left|center_vertical"
+            android:text="Arrive at"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/edtArrive"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="0"
+            android:gravity="center_horizontal|center_vertical"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dateGr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/form"
+        app:layout_constraintEnd_toEndOf="@+id/form"
+        app:layout_constraintStart_toStartOf="@+id/form"
+        app:layout_constraintTop_toBottomOf="@+id/arrGr"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:drawableRight="@drawable/baseline_date_range_24"
+            android:gravity="left|center_vertical"
+            android:text="Depart Date"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/edtDate"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="0"
+            android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
+            android:inputType="text"
+            android:text="2023-12-09"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/timeGr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/form"
+        app:layout_constraintEnd_toEndOf="@+id/form"
+        app:layout_constraintStart_toStartOf="@+id/form"
+        app:layout_constraintTop_toBottomOf="@+id/dateGr"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_weight="0"
+            android:drawableRight="@drawable/baseline_access_time_24"
+            android:gravity="left|center_vertical"
+            android:text="Time"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/edtStart"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
+            android:inputType="text"
+            android:text="9:30"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/txtTo"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
+            android:inputType="text"
+            android:text="To" />
+
+        <TextView
+            android:id="@+id/edtEnd"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center_horizontal|center_vertical"
+            android:inputType="text"
+            android:text="11:00"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="351dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#CCCCCC"
+        android:elevation="2dp"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="@+id/form"
+        app:layout_constraintEnd_toEndOf="@+id/form"
+        app:layout_constraintStart_toStartOf="@+id/form"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.0">
+
+        <!-- Header Row -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:padding="8dp"
+                android:text="Class"
+                android:textColor="#111111"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:padding="8dp"
+                android:text="Fare"
+                android:textColor="#111111"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|center_vertical"
+                android:padding="8dp"
+                android:text="Passenger"
+                android:textColor="#111111"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <!-- Economy Row -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:height="40dp"
+                android:background="#6AB0E8"
+                android:padding="8dp"
+                android:text="Economy"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+            <EditText
+                android:id="@+id/edtEcoFare"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:height="40dp"
+                android:background="#AFD3F1"
+                android:drawableRight="@drawable/baseline_attach_money_24"
+                android:gravity="center_horizontal"
+                android:padding="8dp"
+                android:text="20.1"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtEcoPass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:height="40dp"
+                android:background="#AFD3F1"
+                android:drawableRight="@drawable/baseline_airline_seat_recline_normal_24"
+                android:gravity="center_horizontal"
+                android:inputType="number"
+                android:padding="8dp"
+                android:text="30"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <!-- Business Row -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:height="40dp"
+                android:background="#D8D191"
+                android:padding="8dp"
+                android:text="Business"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+            <EditText
+                android:id="@+id/edtBusFare"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:height="40dp"
+                android:background="#F3EDB9"
+                android:drawableRight="@drawable/baseline_attach_money_24"
+                android:gravity="center_horizontal"
+                android:padding="8dp"
+                android:text="20.1"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtBusPass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:height="40dp"
+                android:background="#F3EDB9"
+                android:drawableRight="@drawable/baseline_airline_seat_recline_normal_24"
+                android:gravity="center_horizontal"
+                android:inputType="number"
+                android:padding="8dp"
+                android:text="30"
+                android:textSize="16sp" />
+        </TableRow>
+
+        <!-- First Row -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:height="40dp"
+                android:background="#87E88A"
+                android:padding="8dp"
+                android:text="First"
+                android:textSize="16sp"
+                android:textStyle="bold|italic" />
+
+            <EditText
+                android:id="@+id/edtFirstFare"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:height="40dp"
+                android:background="#B3EDB5"
+                android:drawableRight="@drawable/baseline_attach_money_24"
+                android:gravity="center_horizontal"
+                android:padding="8dp"
+                android:text="20.1"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtFirstPass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:height="40dp"
+                android:background="#B3EDB5"
+                android:drawableRight="@drawable/baseline_airline_seat_recline_normal_24"
+                android:gravity="center_horizontal"
+                android:inputType="number"
+                android:padding="8dp"
+                android:text="30"
+                android:textSize="16sp" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="2dp"
+        android:text="Table Class Details"
+        android:textColor="#111111"
+        app:layout_constraintBottom_toBottomOf="@+id/form"
+        app:layout_constraintEnd_toEndOf="@+id/tableLayout"
+        app:layout_constraintStart_toStartOf="@+id/tableLayout"
+        app:layout_constraintTop_toBottomOf="@+id/timeGr"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/form"
+        app:layout_constraintVertical_bias="0.0">
+
+        <Button
+            android:id="@+id/btCreate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#0FB17E"
+            android:text="Create" />
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btBack"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/baseline_arrow_back_24"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

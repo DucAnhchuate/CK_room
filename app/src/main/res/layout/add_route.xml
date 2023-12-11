@@ -19,7 +19,7 @@
         android:gravity="center"
         android:text="TRAIN NAME" />
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/sourceSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"/>
@@ -96,7 +96,7 @@
 
     </TextView>
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/desSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown">

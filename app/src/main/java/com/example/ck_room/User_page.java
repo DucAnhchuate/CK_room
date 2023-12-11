@@ -1,33 +1,40 @@
 package com.example.ck_room;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.example.ck_room.Entity.User;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 public class User_page extends AppCompatActivity {
     int REQUEST_CODE = 4;
-    Button edit,check,buy,back;
+    ImageButton edit,check,buy,back;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
 
-        setContentView(R.layout.user_page);
-        edit = findViewById(R.id.edit_profile);
-        check = findViewById(R.id.check_pnr);
-        buy = findViewById(R.id.buy_ticket);
-        back = findViewById(R.id.back);
-
+        setContentView(R.layout.user_page1);
+        edit = findViewById(R.id.btUser);
+        check = findViewById(R.id.btHistory);
+        buy = findViewById(R.id.btBooking);
+        //back = findViewById(R.id.back);
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
@@ -38,14 +45,14 @@ public class User_page extends AppCompatActivity {
         String pass = intent.getStringExtra("pass");
         Log.d("=====",name);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                setResult(RESULT_OK,intent);
-                finish();
-            }
-        });
+//        back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                setResult(RESULT_OK,intent);
+//                finish();
+//            }
+//        });
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override

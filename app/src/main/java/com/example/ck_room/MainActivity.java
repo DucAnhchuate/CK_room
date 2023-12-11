@@ -71,13 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         register.setMovementMethod(android.text.method.LinkMovementMethod.getInstance());
 
-//        register.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this,Sign_up.class);
-//            }
-//        });
-
         //Password toggle
         pass.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -122,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User user =myDatabase.userDao().getUserByMail(username.getText().toString());
+                User user = myDatabase.userDao().getUserByMail(username.getText().toString());
                 if(username.getText().toString().equals("admin") && pass.getText().toString().equals("admin"))
                 {
                     Intent intent = new Intent(MainActivity.this,Admin_page.class);

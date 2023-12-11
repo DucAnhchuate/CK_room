@@ -5,6 +5,9 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,10 +19,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ck_room.DataConfig.DatabaseManager;
 import com.example.ck_room.DataConfig.MyDatabase;
+import com.example.ck_room.Entity.User;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.Calendar;
 
 public class Sign_up extends AppCompatActivity {
@@ -28,6 +32,8 @@ public class Sign_up extends AppCompatActivity {
     RadioButton radioMale, radioFemale;
     Button signUp;
     TextView signIn, dateDialog;
+
+    boolean passwordVisible;
 
     int age= 0;
     DatePickerDialog datePickerDialog;
@@ -131,7 +137,7 @@ public class Sign_up extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_up1);
+        setContentView(R.layout.sign_up);
         first = findViewById(R.id.edtFirst);
         last = findViewById(R.id.edtLast);
         dateDialog = findViewById(R.id.dob2);
@@ -155,6 +161,44 @@ public class Sign_up extends AppCompatActivity {
                 finish();
             }
         });
+
+        pass.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                final int Right = 2;
+
+                if (event.getAction() == MotionEvent.ACTION_UP){
+
+                    if (event.getRawX() >= pass.getRight() - pass.getCompoundDrawables()[Right].getBounds().width()){
+
+                        int selection = pass.getSelectionEnd();
+
+                        if (passwordVisible){
+
+                            pass.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_off_24, 0);
+
+                            pass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+                            passwordVisible = false;
+                        }
+                        else{
+
+                            pass.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_24, 0);
+
+                            pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+
+
+                            passwordVisible = true;
+                        }
+                        pass.setSelection(selection);
+
+                        return true;
+                    }
+                }
+                return  false;
+            }
+        });
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,31 +220,34 @@ public class Sign_up extends AppCompatActivity {
 
                 else if(age < 18)
                 {
-                    //Toast.makeText(Sign_up.this, "Age must be > 0 and < 200", Toast.LENGTH_SHORT).show();
                     aler("Age must be >= 18");
                     flag = false;
                 }
-//                int age_convert = Integer.parseInt(age.getText().toString());
-//                String gender_convert = "";
-//
-//                if(flag)
-//                {
-//                    if(radioFemale.isChecked())
-//                    {
-//                        gender_convert = radioFemale.getText().toString();
-//                    }
-//                    else
-//                    {
-//                        gender_convert = radioMale.getText().toString();
-//                    }
-//                    Intent resultIntent = new Intent();
-//                    myDatabase = DatabaseManager.getDatabase(getApplicationContext());
-//                    User user = new User(username.getText().toString(),pass.getText().toString(),name.getText().toString(),
-//                    phone.getText().toString(),age_convert,gender_convert);
-//                    myDatabase.userDao().insert(user);
-//                    setResult(RESULT_OK, resultIntent);
-//                    finish();
-//                }
+                String gender = "";
+                //if ()
+
+
+                if(flag)
+                {
+                    String name = last.getText().toString() + " " + first.getText().toString();
+                    if(radioFemale.isChecked())
+                    {
+                        gender = radioFemale.getText().toString();
+                    }
+                    else
+                    {
+                        gender = radioMale.getText().toString();
+                    }
+                    Intent resultIntent = new Intent();
+                    myDatabase = DatabaseManager.getDatabase(getApplicationContext());
+
+                    User user = new User(username.getText().toString(),pass.getText().toString(),name,
+                                                    phone.getText().toString(), age, gender);
+
+                    myDatabase.userDao().insert(user);
+                    setResult(RESULT_OK, resultIntent);
+                    finish();
+                }
             }
         });
     }

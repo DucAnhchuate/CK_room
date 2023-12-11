@@ -49,5 +49,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.stripe:stripe-android:20.0.0")
     implementation ("androidx.cardview:cardview:1.0.0")
-
+    implementation ("com.squareup.picasso:picasso:2.71828")
 }

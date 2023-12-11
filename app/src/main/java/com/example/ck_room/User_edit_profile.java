@@ -1,97 +1,130 @@
 package com.example.ck_room;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ck_room.DataConfig.DatabaseManager;
 import com.example.ck_room.DataConfig.MyDatabase;
-import com.example.ck_room.Entity.User;
 
 public class User_edit_profile extends AppCompatActivity {
 
-    EditText name,age,phone,username,pass;
-    Button back,edit;
-    RadioGroup radio;
-    RadioButton radioMale, radioFemale;
+    EditText phone, first, last;
+    Button back,save;
+    String[] genderOptions = {"Female", "Male"};
+
+    TextView name, gender;
+
     MyDatabase myDatabase;
+    String selectedGender;
+    private void showGenderDialog() {
+
+        int defaultSelectedIndex = getGenderIndex(gender.getText().toString());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(User_edit_profile.this);
+        builder.setTitle("Select Gender")
+                .setSingleChoiceItems(genderOptions, defaultSelectedIndex, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedGender= genderOptions[which];
+                    }
+                });
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                gender.setText(selectedGender);
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private int getGenderIndex(String gender) {
+        for (int i = 0; i < genderOptions.length; i++) {
+            if (genderOptions[i].equalsIgnoreCase(gender)) {
+                return i;
+            }
+        }
+        return -1; // Trả về
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_edit_profile);
         myDatabase = DatabaseManager.getDatabase(getApplicationContext());
-        name = findViewById(R.id.name);
-        age = findViewById(R.id.age);
-        phone = findViewById(R.id.phone);
-        username = findViewById(R.id.username);
-        pass = findViewById(R.id.password);
-        back = findViewById(R.id.back);
-        edit = findViewById(R.id.edit);
+        name = findViewById(R.id.txtName);
+        phone = findViewById(R.id.edtPhone);
+        back = findViewById(R.id.btBack);
+        save = findViewById(R.id.btSave);
+        gender = findViewById(R.id.edtGe);
 
-        radio = findViewById(R.id.radioGroup);
-        radioMale = findViewById(R.id.radioFemale);
-        radioFemale = findViewById(R.id.radioMale);
 
         Intent intent = getIntent();
-        String name1 = intent.getStringExtra("name");
-        String age2 = intent.getStringExtra("age");
-        String phone3 = intent.getStringExtra("phone");
-        String gender4 = intent.getStringExtra("gender");
-        String username5 = intent.getStringExtra("username");
-        String pass6 = intent.getStringExtra("pass");
-        Log.d("=====",name1);
+        String nameTemp = intent.getStringExtra("name");
+        String phoneTemp = intent.getStringExtra("phone");
+        String genderTemp = intent.getStringExtra("gender");
+        Log.d("=====",nameTemp);
 
-        name.setText(name1);
-        age.setText(age2);
-        phone.setText(phone3);
-        username.setText(username5);
-        pass.setText(pass6);
-        if(gender4.equals("Female"))
+        name.setText(nameTemp);
+        phone.setText(phoneTemp);
+
+//        String[] temp = nameTemp.split("\\s+");
+//        String lastTemp = null;
+//        for (int i = 0; i <= temp.length - 2; i++){
+//            if (i == temp.length - 2){
+//                lastTemp = lastTemp + temp[temp.length - 2];
+//            }
+//            else{
+//                lastTemp = lastTemp + temp[i] + " ";
+//            }
+//        }
+//        last.setText(lastTemp);
+//
+//        first.setText(temp[temp.length - 1]);
+
+        if(genderTemp.equals("Female"))
         {
-            radioFemale.setChecked(true);
+            gender.setText("Female");
         }
         else
         {
-            radioMale.setChecked(true);
+            gender.setText("Male");
         }
-        edit.setOnClickListener(new View.OnClickListener() {
+
+        gender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String gender_convert = "" ;
-                if(radioMale.isChecked())
-                {
-                    gender_convert = "" + radioFemale.getText().toString();
-                }
-                else
-                {
-                    gender_convert = "" + radioMale.getText().toString();
-
-                }
-
-
-                User user = myDatabase.userDao().getUserByMail(username5);
-                user.setUserName(username.getText().toString());
-                user.setPass(pass.getText().toString());
-                user.setName(name.getText().toString());
-                user.setPhone(phone.getText().toString());
-                user.setGender(gender_convert);
-                user.setAge(Integer.parseInt(age.getText().toString()));
-
-                myDatabase.userDao().update(user);
-                Intent intent = new Intent();
-
-                setResult(RESULT_OK,intent);
-                finish();
+                showGenderDialog();
             }
         });
+//        save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                User user = myDatabase.userDao().getUserByMail(emailTemp);
+//                //user.setUserName(username.getText().toString());
+//                //user.setPass(pass.getText().toString());
+//                user.setName(last.getText().toString() + " " + first.getText().toString());
+//                user.setPhone(phone.getText().toString());
+//                user.setGender(gender.getText().toString());
+//                //user.setAge(Integer.parseInt(age.getText().toString()));
+//
+//                myDatabase.userDao().update(user);
+//                Intent intent = new Intent();
+//
+//                setResult(RESULT_OK,intent);
+//                finish();
+//            }
+//        });
 
     }
 }

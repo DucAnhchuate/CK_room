@@ -43,8 +43,8 @@ public class Add_route extends AppCompatActivity {
         but_oke = findViewById(R.id.ok);
         but_update = findViewById(R.id.update);
         but_cancel = findViewById(R.id.cancel);
-        spinner = findViewById(R.id.spinner);
-        spinner2 = findViewById(R.id.spinner2);
+        spinner = findViewById(R.id.sourceSpinner);
+        spinner2 = findViewById(R.id.desSpinner);
 
         train_id = findViewById(R.id.train_id);
         station_id = findViewById(R.id.station_id);

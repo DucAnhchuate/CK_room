@@ -23,22 +23,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Sign_up"></activity>
-        <activity android:name=".Admin_page"></activity>
-        <activity android:name=".User_page"></activity>
-        <activity android:name=".Add_Train"></activity>
-        <activity android:name=".Add_Train_Status"></activity>
-        <activity android:name=".Add_route"></activity>
-        <activity android:name=".Add_station"></activity>
-        <activity android:name=".Manage_train"></activity>
-        <activity android:name=".Admin_manage_profile"></activity>
-        <activity android:name=".Search"></activity>
-        <activity android:name=".User_edit_profile"></activity>
-        <activity android:name=".User_choose_seat"></activity>
-        <activity android:name=".Schedule"></activity>
-        <activity android:name=".User_buy_ticket"></activity>
-
-
+        <activity android:name=".Sign_up" />
+        <activity android:name=".Admin_page" />
+        <activity android:name=".User_page" />
+        <activity android:name=".Add_Train" />
+        <activity android:name=".Add_Train_Status" />
+        <activity android:name=".Add_route" />
+        <activity android:name=".Add_station" />
+        <activity android:name=".Manage_train" />
+        <activity android:name=".Admin_manage_profile" />
+        <activity android:name=".Search" />
+        <activity android:name=".User_edit_profile" />
+        <activity android:name=".User_choose_seat" />
+        <activity android:name=".Schedule" />
+        <activity android:name=".User_buy_ticket" />
     </application>
 
 </manifest>

@@ -4,9 +4,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +15,15 @@ public class Train_class {
         @PrimaryKey(autoGenerate = true)
         private int id;
     private int train_id;
-    private double Fare_Class1;
-    private int Seat_Class1;
-    private double Fare_Class2;
-    private int Seat_Class2;
-    private double Fare_Class3;
-    private int Seat_Class3;
-    private String takenSeats_Class1;
-    private String takenSeats_Class2;
-    private String takenSeats_Class3;
+    private double Economy_Fare;
+    private int Economy_Passenger;
+    private double Business_Fare;
+    private int Business_Passenger;
+    private double First_Fare;
+    private int First_Passenger;
+    private String takenSeats_Economy;
+    private String takenSeats_Business;
+    private String takenSeats_First;
 
 
 
@@ -35,85 +32,111 @@ public class Train_class {
     {
 
     }
-    public Train_class(int train_id, double fare_Class1, int seat_Class1, double fare_Class2, int seat_Class2, double fare_Class3, int seat_Class3) {
-        this.train_id = train_id;
-        this.Fare_Class1 = fare_Class1;
-        this.Seat_Class1 = seat_Class1;
-        this.Fare_Class2 = fare_Class2;
-        this.Seat_Class2 = seat_Class2;
-        this.Fare_Class3 = fare_Class3;
-        this.Seat_Class3 = seat_Class3;
-        this.takenSeats_Class1 = generateInitialSeatString(seat_Class1);
-        this.takenSeats_Class2 = generateInitialSeatString(seat_Class2);
-        this.takenSeats_Class3 = generateInitialSeatString(seat_Class3);
-
-
-    }
-
-    // Getters and setters...
-
-    public double getFare_Class1() {
-        return Fare_Class1;
-    }
-
-    public void setFare_Class1(double Fare_Class1) {
-        this.Fare_Class1 = Fare_Class1;
-    }
-
-    public int getSeat_Class1() {
-        return Seat_Class1;
-    }
-
-    public void setSeat_Class1(int Seat_Class1) {
-        this.Seat_Class1 = Seat_Class1;
-    }
-
-    public double getFare_Class2() {
-        return Fare_Class2;
-    }
-
-    public void setFare_Class2(double Fare_Class2) {
-        this.Fare_Class2 = Fare_Class2;
-    }
-
-    public int getSeat_Class2() {
-        return Seat_Class2;
-    }
-
-    public void setSeat_Class2(int Seat_Class2) {
-        this.Seat_Class2 = Seat_Class2;
-    }
-
-    public double getFare_Class3() {
-        return Fare_Class3;
-    }
-
-    public void setFare_Class3(double Fare_Class3) {
-        this.Fare_Class3 = Fare_Class3;
-    }
-
-    public int getSeat_Class3() {
-        return Seat_Class3;
-    }
-
-    public void setSeat_Class3(int Seat_Class3) {
-        this.Seat_Class3 = Seat_Class3;
-    }
 
     public int getTrain_id() {
         return train_id;
+    }
+
+    public int getEconomy_Passenger() {
+        return Economy_Passenger;
+    }
+
+    public double getBusiness_Fare() {
+        return Business_Fare;
+    }
+
+    public int getBusiness_Passenger() {
+        return Business_Passenger;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setTrain_id(int train_id) {
         this.train_id = train_id;
     }
 
-    public int getId() {
-        return id;
+    public void setEconomy_Fare(double economy_Fare) {
+        Economy_Fare = economy_Fare;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEconomy_Passenger(int economy_Passenger) {
+        Economy_Passenger = economy_Passenger;
+    }
+
+    public void setBusiness_Fare(double business_Fare) {
+        Business_Fare = business_Fare;
+    }
+
+    public void setBusiness_Passenger(int business_Passenger) {
+        Business_Passenger = business_Passenger;
+    }
+
+    public void setFirst_Fare(double first_Fare) {
+        First_Fare = first_Fare;
+    }
+
+    public void setFirst_Passenger(int first_Passenger) {
+        First_Passenger = first_Passenger;
+    }
+
+    public void setTakenSeats_Economy(String takenSeats_Economy) {
+        this.takenSeats_Economy = takenSeats_Economy;
+    }
+
+    public void setTakenSeats_Business(String takenSeats_Business) {
+        this.takenSeats_Business = takenSeats_Business;
+    }
+
+    public void setTakenSeats_First(String takenSeats_First) {
+        this.takenSeats_First = takenSeats_First;
+    }
+
+    public double getFirst_Fare() {
+        return First_Fare;
+    }
+
+    public int getFirst_Passenger() {
+        return First_Passenger;
+    }
+
+    public String getTakenSeats_Economy() {
+        return takenSeats_Economy;
+    }
+
+    public String getTakenSeats_Business() {
+        return takenSeats_Business;
+    }
+
+    public String getTakenSeats_First() {
+        return takenSeats_First;
+    }
+
+    public Train_class(int train_id, double Economy_Fare, int Economy_Passenger, double Bussiness_Fare, int Business_Passenger, double First_Fare, int First_Passenger) {
+        this.train_id = train_id;
+        this.Economy_Fare = Economy_Fare;
+        this.Economy_Passenger = Economy_Passenger;
+        this.Business_Fare = Bussiness_Fare;
+        this.Business_Passenger = Business_Passenger;
+        this.First_Fare = First_Fare;
+        this.First_Passenger = First_Passenger;
+        this.takenSeats_Economy = generateInitialSeatString(Economy_Passenger);
+        this.takenSeats_Business = generateInitialSeatString(Business_Passenger);
+        this.takenSeats_First = generateInitialSeatString(First_Passenger);
+
+
+    }
+
+    // Getters and setters...
+
+
+    public double getEconomy_Fare() {
+        return Economy_Fare;
+    }
+
+    public int getId() {
+        return id;
     }
 
     private String generateInitialSeatString(int seatCount) {
@@ -124,29 +147,7 @@ public class Train_class {
         return sb.toString();
     }
 
-    public String getTakenSeats_Class1() {
-        return takenSeats_Class1;
-    }
 
-    public void setTakenSeats_Class1(String takenSeats_Class1) {
-        this.takenSeats_Class1 = takenSeats_Class1;
-    }
-
-    public String getTakenSeats_Class2() {
-        return takenSeats_Class2;
-    }
-
-    public void setTakenSeats_Class2(String takenSeats_Class2) {
-        this.takenSeats_Class2 = takenSeats_Class2;
-    }
-
-    public String getTakenSeats_Class3() {
-        return takenSeats_Class3;
-    }
-
-    public void setTakenSeats_Class3(String takenSeats_Class3) {
-        this.takenSeats_Class3 = takenSeats_Class3;
-    }
     private static String setSeatStatus(String seatString, int seatIndex, boolean isTaken) {
         // Chuyển chuỗi ký tự thành mảng ký tự để thao tác dễ dàng
         char[] seats = seatString.toCharArray();

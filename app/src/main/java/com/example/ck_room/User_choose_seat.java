@@ -66,24 +66,24 @@ public class User_choose_seat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 List<Integer> list_interger = new ArrayList<>();
-                if(radioButton1.isChecked())
-                {
-                    list_interger = trainClass.getAvailableSeats(trainClass.getTakenSeats_Class1());
-                    text_price.setText(trainClass.getFare_Class1() +"");
-
-                }
-                else if(radioButton2.isChecked())
-                {
-                    list_interger = trainClass.getAvailableSeats(trainClass.getTakenSeats_Class2());
-                    text_price.setText(trainClass.getFare_Class2() +"");
-
-
-                }
-                else
-                {
-                    list_interger = trainClass.getAvailableSeats(trainClass.getTakenSeats_Class3());
-                    text_price.setText(trainClass.getFare_Class3() +"");
-                }
+//                if(radioButton1.isChecked())
+//                {
+//                    list_interger = trainClass.getAvailableSeats(trainClass.getTakenSeats_Class1());
+//                    text_price.setText(trainClass.getFare_Class1() +"");
+//
+//                }
+//                else if(radioButton2.isChecked())
+//                {
+//                    list_interger = trainClass.getAvailableSeats(trainClass.getTakenSeats_Class2());
+//                    text_price.setText(trainClass.getFare_Class2() +"");
+//
+//
+//                }
+//                else
+//                {
+//                    list_interger = trainClass.getAvailableSeats(trainClass.getTakenSeats_Class3());
+//                    text_price.setText(trainClass.getFare_Class3() +"");
+//                }
 
                 String s = "price: " +text_price.getText().toString();
                 text_price.setText(s);

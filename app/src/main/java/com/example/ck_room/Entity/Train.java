@@ -19,16 +19,14 @@ public class Train {
     @PrimaryKey(autoGenerate = true)
     private int train_id;
     private String Train_name;
-    private String Train_type;
     private String Source_stn;
     private String Destination_stn;
     private int Source_ID;
     private int Destination_ID;
 
     // Constructor
-    public Train(String Train_name, String Train_type, String Source_stn, String Destination_stn, int Source_ID, int Destination_ID) {
+    public Train(String Train_name, String Source_stn, String Destination_stn, int Source_ID, int Destination_ID) {
         this.Train_name = Train_name;
-        this.Train_type = Train_type;
         this.Source_stn = Source_stn;
         this.Destination_stn = Destination_stn;
         this.Source_ID = Source_ID;
@@ -52,13 +50,6 @@ public class Train {
         this.Train_name = Train_name;
     }
 
-    public String getTrain_type() {
-        return Train_type;
-    }
-
-    public void setTrain_type(String Train_type) {
-        this.Train_type = Train_type;
-    }
 
     public String getSource_stn() {
         return Source_stn;
@@ -104,7 +95,6 @@ public class Train {
     public String toString() {
         return
               Train_name  +
-                "            " + Train_type  +
                 "         " + Source_stn +
                 "         " + Destination_stn +"/" +train_id;
 
